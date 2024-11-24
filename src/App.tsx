@@ -1,14 +1,6 @@
-import { useQuery, gql } from "@apollo/client";
+import { useQuery } from "@apollo/client";
+import { GET_COUNTRIES } from './graphql/queries'
 import "./App.css";
-
-export const GET_COUNTRIES = gql`
-  query GetCountries {
-    countries {
-      name
-      code
-    }
-  }
-`;
 
 type Country = {
   name: string

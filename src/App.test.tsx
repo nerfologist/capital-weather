@@ -1,7 +1,8 @@
 import { render, screen } from "./test-utils";
 import { describe, it } from "vitest";
 import { MockedProvider, MockedResponse } from "@apollo/client/testing";
-import App, { GET_COUNTRIES } from "./App";
+import { GET_COUNTRIES } from './graphql/queries'
+import App from "./App";
 
 const GET_COUNTRIES_REQUEST = {
       query: GET_COUNTRIES,
