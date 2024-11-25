@@ -14,10 +14,12 @@ function App() {
 
   return (
     <div className="App relative min-h-screen flex">
-      <aside className="bg-blue-800 text-blue-100 w-64 p-10">
+      <aside className="menu bg-base-200 rounded-box w-56">
         <ul>
           {data.countries.map((country: Country) => (
-            <li key={country.code}>{country.name}</li>
+            <li key={country.code}>
+              <a href="#">{country.name}</a>
+            </li>
           ))}
         </ul>
       </aside>
