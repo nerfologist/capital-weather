@@ -1,8 +1,8 @@
-import { render, screen } from "./test-utils";
 import { describe, it } from "vitest";
 import { MockedProvider, MockedResponse } from "@apollo/client/testing";
-import { GET_COUNTRIES } from "./graphql/queries";
-import App from "./App";
+import { render, screen } from "../test-utils";
+import { GET_COUNTRIES } from "../graphql/queries";
+import Root from "./Root";
 
 const GET_COUNTRIES_REQUEST = {
   query: GET_COUNTRIES,
@@ -29,7 +29,7 @@ const error: MockedResponse = {
 const renderApp = (mocks: MockedResponse[]) =>
   render(
     <MockedProvider mocks={mocks}>
-      <App />
+      <Root />
     </MockedProvider>,
   );
 

@@ -1,14 +1,14 @@
 import { useQuery } from "@apollo/client";
-import { GET_COUNTRIES } from "./graphql/queries";
-import SearchBar from "./components/SearchBar";
-import CountryPane from "./components/CountryPane";
+import { GET_COUNTRIES } from "../graphql/queries";
+import SearchBar from "../components/SearchBar";
+import CountryPane from "../components/CountryPane";
 
 type Country = {
   name: string;
   code: string;
 };
 
-function App() {
+function Root() {
   const { loading, error, data } = useQuery(GET_COUNTRIES);
 
   if (loading) return <p>Loading...</p>;
@@ -33,4 +33,4 @@ function App() {
   );
 }
 
-export default App;
+export default Root;
