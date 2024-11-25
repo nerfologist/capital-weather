@@ -1,5 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { GET_COUNTRIES } from "./graphql/queries";
+import SearchBar from "./components/SearchBar";
 
 type Country = {
   name: string;
@@ -14,7 +15,8 @@ function App() {
 
   return (
     <div className="App relative min-h-screen flex">
-      <aside className="menu bg-base-200 rounded-box w-56">
+      <aside className="menu p-2 bg-base-200 rounded-box w-65 flex-col gap-2">
+        <SearchBar onChange={(e) => console.log("onChange called", e)} />
         <ul>
           {data.countries.map((country: Country) => (
             <li key={country.code}>
