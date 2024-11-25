@@ -8,6 +8,9 @@ export default {
       fontFamily: {
         sans: ["InterVariable", ...defaultTheme.fontFamily.sans],
       },
+      flexGrow: {
+        3: "3",
+      },
     },
   },
   plugins: [require("daisyui")],
