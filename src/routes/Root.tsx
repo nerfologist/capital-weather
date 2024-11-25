@@ -6,6 +6,7 @@ import CountryPane from "../components/CountryPane";
 type Country = {
   name: string;
   code: string;
+  emoji: string;
 };
 
 function Root() {
@@ -21,7 +22,9 @@ function Root() {
         <ul>
           {data.countries.map((country: Country) => (
             <li key={country.code}>
-              <a href="#">{country.name}</a>
+              <a href={`/countries/${country.code}`}>
+                {country.emoji} {country.name}
+              </a>
             </li>
           ))}
         </ul>

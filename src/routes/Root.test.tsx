@@ -14,8 +14,8 @@ const success: MockedResponse = {
   result: {
     data: {
       countries: [
-        { name: "Italy", code: "IT" },
-        { name: "Greece", code: "GR" },
+        { name: "Italy", code: "IT", emoji: "🇮🇹" },
+        { name: "Greece", code: "GR", emoji: "🇬🇷" },
       ],
     },
   },
@@ -41,8 +41,8 @@ describe("<App />", () => {
 
   it("renders retrieved countries in a simple menu", async () => {
     renderApp([success]);
-    await screen.findByRole("link", { name: "Italy" });
-    await screen.findByRole("link", { name: "Greece" });
+    await screen.findByRole("link", { name: /Italy/ });
+    await screen.findByRole("link", { name: /Greece/ });
   });
 
   describe("when a network error occurs in the GraphQL query", () => {
