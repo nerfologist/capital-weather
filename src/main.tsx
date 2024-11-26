@@ -4,6 +4,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import { loadErrorMessages, loadDevMessages } from "@apollo/client/dev";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "./routes/Root.tsx";
+import Country from "./routes/Country.tsx";
 import ErrorPage from "./pages/ErrorPage";
 import "./build.css";
 
@@ -18,7 +19,12 @@ const client = new ApolloClient({
 });
 
 const router = createBrowserRouter([
-  { path: "/", element: <Root />, errorElement: <ErrorPage /> },
+  {
+    path: "/",
+    element: <Root />,
+    errorElement: <ErrorPage />,
+    children: [{ path: "/countries/:countryCode", element: <Country /> }],
+  },
 ]);
 
 createRoot(document.getElementById("root")!).render(

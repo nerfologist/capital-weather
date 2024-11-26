@@ -1,5 +1,5 @@
+import { Outlet } from "react-router-dom";
 import SearchBar from "../components/SearchBar";
-import CountryPane from "../components/CountryPane";
 import CountriesList from "../components/CountriesList";
 
 function Root() {
@@ -10,7 +10,7 @@ function Root() {
         <CountriesList />
       </aside>
       <main className="p-10 flex-1 grow-3">
-        <CountryPane />
+        <Outlet />
       </main>
     </div>
   );
