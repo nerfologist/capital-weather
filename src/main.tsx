@@ -4,6 +4,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import { loadErrorMessages, loadDevMessages } from "@apollo/client/dev";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "./routes/Root.tsx";
+import ErrorPage from "./pages/ErrorPage";
 import "./build.css";
 
 if (import.meta.env.DEV) {
@@ -16,7 +17,9 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-const router = createBrowserRouter([{ path: "/", element: <Root /> }]);
+const router = createBrowserRouter([
+  { path: "/", element: <Root />, errorElement: <ErrorPage /> },
+]);
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
