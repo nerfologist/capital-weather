@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { GET_COUNTRIES } from "../graphql/queries";
 
@@ -17,9 +18,9 @@ const CountriesList = () => {
     <ul>
       {data.countries.map((country: Country) => (
         <li key={country.code}>
-          <a href={`/countries/${country.code}`}>
+          <Link to={`countries/${country.code}`}>
             {country.emoji} {country.name}
-          </a>
+          </Link>
         </li>
       ))}
     </ul>
