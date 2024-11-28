@@ -8,7 +8,7 @@ type Country = {
   emoji: string;
 };
 
-const CountriesList = () => {
+const CountriesList = ({ search }: { search: string }) => {
   const { loading, error, data } = useQuery(GET_COUNTRIES);
 
   if (loading) return <p>Loading...</p>;
@@ -16,13 +16,17 @@ const CountriesList = () => {
 
   return (
     <ul>
-      {data.countries.map((country: Country) => (
-        <li key={country.code}>
-          <Link to={`countries/${country.code}`}>
-            {country.emoji} {country.name}
-          </Link>
-        </li>
-      ))}
+      {data.countries
+        .filter((country: Country) =>
+          search ? new RegExp(`^${search}`, "i").test(country.name) : true,
+        )
+        .map((country: Country) => (
+          <li key={country.code}>
+            <Link to={`countries/${country.code}`}>
+              {country.emoji} {country.name}
+            </Link>
+          </li>
+        ))}
     </ul>
   );
 };
