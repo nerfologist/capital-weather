@@ -8,7 +8,13 @@ type Country = {
   emoji: string;
 };
 
-const CountriesList = ({ search }: { search: string }) => {
+const CountriesList = ({
+  search,
+  handleLinkClick,
+}: {
+  search: string;
+  handleLinkClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void;
+}) => {
   const { loading, error, data } = useQuery(GET_COUNTRIES);
 
   if (loading) return <p>Loading...</p>;
@@ -22,7 +28,7 @@ const CountriesList = ({ search }: { search: string }) => {
         )
         .map((country: Country) => (
           <li key={country.code}>
-            <Link to={`countries/${country.code}`}>
+            <Link to={`countries/${country.code}`} onClick={handleLinkClick}>
               {country.emoji} {country.name}
             </Link>
           </li>
