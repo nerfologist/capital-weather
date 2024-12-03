@@ -1,5 +1,5 @@
 # CapitalWeather app
-Example of a simple app written in Vite, TypeScript and React, which uses data
+⛈️  Example of a simple app written in Vite, TypeScript and React, which uses data
 from a GraphQL API and a REST API.
 
 ## Starting the dev server
