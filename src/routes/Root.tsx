@@ -63,7 +63,7 @@ function Root() {
             </div>
           </div>
           {/* Page content here */}
-          <div className="flex lg:p-2 gap-2">
+          <div className="flex lg:p-2 gap-2" data-testid="desktop-only">
             <aside className="menu p-2 bg-base-200 rounded-box flex-col gap-2 grow-1 hidden lg:block">
               <SearchBar
                 className="grow-0"
@@ -82,7 +82,10 @@ function Root() {
             aria-label="close sidebar"
             className="drawer-overlay"
           ></label>
-          <ul className="menu bg-base-200 min-h-full w-80 p-4">
+          <ul
+            className="menu bg-base-200 min-h-full w-80 p-4"
+            data-testid="mobile-only"
+          >
             {/* Sidebar content here */}
             <SearchBar
               className="grow-0"
