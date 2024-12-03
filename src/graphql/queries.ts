@@ -4,6 +4,7 @@ export const GET_COUNTRIES = gql`
   query GetCountries {
     countries {
       name
+      capital
       code
       emoji
     }

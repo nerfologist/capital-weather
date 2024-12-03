@@ -15,8 +15,8 @@ const success: MockedResponse = {
   result: {
     data: {
       countries: [
-        { name: "Italy", code: "IT", emoji: "🇮🇹" },
-        { name: "Greece", code: "GR", emoji: "🇬🇷" },
+        { name: "Italy", capital: "Rome", code: "IT", emoji: "🇮🇹" },
+        { name: "Greece", capital: "Athens", code: "GR", emoji: "🇬🇷" },
       ],
     },
   },

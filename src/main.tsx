@@ -1,6 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { loadErrorMessages, loadDevMessages } from "@apollo/client/dev";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "./routes/Root.tsx";
@@ -13,10 +14,12 @@ if (import.meta.env.DEV) {
   loadErrorMessages();
 }
 
-const client = new ApolloClient({
+const apolloClient = new ApolloClient({
   uri: "https://countries.trevorblades.com/graphql",
   cache: new InMemoryCache(),
 });
+
+const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
   {
@@ -29,8 +32,10 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <ApolloProvider client={client}>
-      <RouterProvider router={router} />
+    <ApolloProvider client={apolloClient}>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
     </ApolloProvider>
   </StrictMode>,
 );

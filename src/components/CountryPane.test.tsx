@@ -1,7 +1,9 @@
-import { render, screen } from "../test-utils";
 import { MockedProvider, MockedResponse } from "@apollo/client/testing";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { describe, expect, it } from "vitest";
 import userEvent from "@testing-library/user-event";
+import nock from "nock";
+import { render, screen } from "../test-utils";
 import { GET_COUNTRY } from "../graphql/queries";
 import CountryPane from "./CountryPane";
 
@@ -44,29 +46,74 @@ const getComponent = (
     ...DEFAULT_PROPS,
     ...propsOverrides,
   };
+  const client = new QueryClient({
+    defaultOptions: {
+      queries: {
+        retry: false,
+      },
+    },
+  });
+
+  const scope = nock("https://api.openweathermap.org")
+    .get("/data/2.5/weather")
+    .query({ q: "Rome,IT", appid: import.meta.env.VITE_OPENWEATHER_API_KEY })
+    .reply(200, {
+      coord: { lat: 10, lon: 20 },
+      weather: [{ main: "cloudy", description: "some clouds here and there" }],
+      main: { temp: 293.0, humidity: 45.0 },
+    });
 
   return {
     props,
+    scope,
     user,
     ...render(
       <MockedProvider mocks={mocks}>
-        <CountryPane {...props} />
+        <QueryClientProvider client={client}>
+          <CountryPane {...props} />
+        </QueryClientProvider>
       </MockedProvider>,
     ),
   };
 };
 
 describe("<CountryPane />", () => {
-  it("renders a figure, a header and a paragraph", async () => {
-    getComponent();
-    expect(await screen.findByAltText("Countryside")).toBeDefined();
+  it.only("renders a figure, a header and a paragraph", async () => {
+    const { scope } = getComponent();
     expect(
-      await screen.findByRole("heading", { name: "Italy (IT)" }),
+      await screen.findByRole("heading", { name: /italy/i }),
     ).toBeDefined();
     expect(
-      await screen.findByText(
-        "A beautiful little country with a lot of countryside locations.",
-      ),
+      await screen.findByText("The country's capital is Rome"),
     ).toBeDefined();
+    expect(
+      await screen.findByRole("listitem", {
+        name: (_content, element) =>
+          element?.textContent === "📍 Latitude: 10, Longitude: 20",
+      }),
+    ).toBeDefined();
+    expect(
+      await screen.findByRole("listitem", {
+        name: (_content, element) =>
+          element?.textContent ===
+          "🌤️ Weather: cloudy (some clouds here and there)",
+      }),
+    ).toBeDefined();
+    expect(
+      await screen.findByRole("listitem", {
+        name: (_content, element) =>
+          element?.textContent === "🌡️ Temperature: 67.73°F (19.85°C)",
+      }),
+    ).toBeDefined();
+    expect(
+      await screen.findByRole("listitem", {
+        name: (_content, element) =>
+          element?.textContent === "💧 Humidity: 45%",
+      }),
+    ).toBeDefined();
+
+    if (!scope.isDone()) {
+      console.error(scope.pendingMocks());
+    }
   });
 });
